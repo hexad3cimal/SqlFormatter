@@ -11,7 +11,7 @@ public class Formatter {
     public static boolean isInEnum(String test) {
 
         for (Keywords c : Keywords.values()) {
-            if (c.name().toString().equalsIgnoreCase(test)) {
+            if (c.name().equalsIgnoreCase(test)) {
                 return true;
             }
         }
@@ -19,42 +19,39 @@ public class Formatter {
         return false;
     }
 
-    public static void main(String args[]){
+    public static void main(String args[]) {
 
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(args[0]), "Cp1252"));
-            FileWriter fw = new FileWriter(args[0]+"_formatted", true);
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("D:\\path\\to\\file.xml_formatted"), "Cp1252"));
+            FileWriter fw = new FileWriter("D:\\path\\to\\file.xml_formatted", true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter out = new PrintWriter(bw);
-
             String line;
             while ((line = br.readLine()) != null) {
+                if (line.toUpperCase().contains("SQLQUERY") ||
+                        line.toUpperCase().contains("TYPE=\"SQL\"")) {
+                    String[] words = line.split(" ");
+                    if (words != null) {
 
-                String[] words = line.split(" ");
-                if(words != null){
+                        for (String w : words) {
 
-                    for (String w : words){
-
-                        if(isInEnum(w.replace(";",""))){
-                            line = line.replace(w,w.toUpperCase());
+                            if (isInEnum(w.replace(";", ""))) {
+                                line = line.replace(w, w.toUpperCase());
+                            }
                         }
-
                     }
                 }
-
                 out.println(line);
 
-
-
             }
+            out.close();
             br.close();
-            bw.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
-
 }
+
+
+
+
