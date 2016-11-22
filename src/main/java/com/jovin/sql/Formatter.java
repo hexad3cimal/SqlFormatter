@@ -22,8 +22,8 @@ public class Formatter {
     public static void main(String args[]) {
 
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("D:\\path\\to\\file.xml_formatted"), "Cp1252"));
-            FileWriter fw = new FileWriter("D:\\path\\to\\file.xml_formatted", true);
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("D:\\path\\to\\test.xml"), "Cp1252"));
+            FileWriter fw = new FileWriter("D:\\path\\to\\test_formatted.xml", true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter out = new PrintWriter(bw);
             String line;
@@ -36,7 +36,7 @@ public class Formatter {
                         for (String w : words) {
 
                             if (isInEnum(w.replace(";", ""))) {
-                                line = line.replace(w, w.toUpperCase());
+                                line = line.replaceAll("\\b"+w+"\\b", w.toUpperCase());
                             }
                         }
                     }
@@ -51,7 +51,3 @@ public class Formatter {
         }
     }
 }
-
-
-
-
