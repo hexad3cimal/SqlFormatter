@@ -28,6 +28,7 @@ public class Formatter {
             PrintWriter out = new PrintWriter(bw);
             String line;
             while ((line = br.readLine()) != null) {
+
                 if (line.toUpperCase().contains("SQLQUERY") ||
                         line.toUpperCase().contains("TYPE=\"SQL\"")) {
                     String[] words = line.split(" ");
